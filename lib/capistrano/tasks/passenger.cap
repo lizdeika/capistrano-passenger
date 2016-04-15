@@ -30,7 +30,7 @@ namespace :passenger do
               # We preprocess the command with SSHKit::Command to allow 'passenger-config' to be transformed with the command map.
               restart_command = [:sudo, SSHKit::Command.new(*restart_command).to_s]
             end
-            execute :bundle, "exec #{*restart_command}"
+            execute :bundle, "exec #{restart_command.join(' ')}"
           end
         end
       end
