@@ -30,8 +30,8 @@ namespace :passenger do
               # We preprocess the command with SSHKit::Command to allow 'passenger-config' to be transformed with the command map.
               restart_command = [:sudo, SSHKit::Command.new(*restart_command).to_s]
             end
-            # execute :bundle, "exec #{restart_command.join(' ')}"
-            execute *restart_command
+            execute :bundle, "exec #{restart_command.join(' ')}"
+            # execute *restart_command
           end
         end
       end
@@ -78,7 +78,7 @@ namespace :passenger do
 
   namespace :bundler do
     task :hook do
-      set :bundle_bins, fetch(:bundle_bins) + [:passenger, :'passenger-config', :'passenger-status'] if fetch(:passenger_in_gemfile, true)
+      set :bundle_bins, fetch(:bundle_bins) + [:passenger, :'passenger-config', :'passenger-status'] if fetch(:passenger_in_gemfile, false)
     end
   end
 end
